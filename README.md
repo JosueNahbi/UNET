@@ -1,3 +1,3 @@
 # UNET
 Academic repository
-Esto e suna pequeña prueba.
+Esto es suna pequeña prueba.
