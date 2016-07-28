@@ -61,9 +61,6 @@ namespace Fausto
 				{
 					posxFausto++;
 					mapa[posxFausto - 1, posyFausto] = '0';
-					vectorX[x] = posxFausto;
-					vectorY[x] = posyFausto;
-					x++;
 				}
 				else
 				{
@@ -71,9 +68,6 @@ namespace Fausto
 					{
 						posxFausto--;
 						mapa[posxFausto + 1, posyFausto] = '0';
-						vectorX[x] = posxFausto;
-						vectorY[x] = posyFausto;
-						x++;
 					}
 					else
 					{
@@ -81,9 +75,6 @@ namespace Fausto
 						{
 							posyFausto++;
 							mapa[posxFausto, posyFausto - 1] = '0';
-							vectorX[x] = posxFausto;
-							vectorY[x] = posyFausto;
-							x++;
 						}
 						else
 						{
@@ -91,13 +82,13 @@ namespace Fausto
 							{
 								posyFausto--;
 								mapa[posxFausto, posyFausto + 1] = '0';
-								vectorX[x] = posxFausto;
-								vectorY[x] = posyFausto;
-								x++;
 							}
 						}
 					}
 				}
+				vectorX[x] = posxFausto;
+				vectorY[x] = posyFausto;
+				x++;
 				contador++;
 			}
 
