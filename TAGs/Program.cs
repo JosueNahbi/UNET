@@ -11,26 +11,28 @@ namespace TAGs
 		static void Main(string[] args)
 		{
 			string linea;
-			int contador = 0;
-			string[] cadena;
-			int i = 0;
+			int contador = 0, i = 0, j = 0;
+			string[] token, vector, auxiliar;
 			System.IO.StreamReader archivo = new System.IO.StreamReader("tag.txt");
 			while((linea = archivo.ReadLine()) != null)
 			{
 				contador++;
 			}
 
-			cadena = new string[contador];
+			vector = new string[contador];
+			auxiliar = new string[contador];
 			System.IO.StreamReader file = new System.IO.StreamReader("tag.txt");
 			while ((linea = file.ReadLine()) != null)
 			{
-				cadena[i] = String.Copy(linea);
-				i++;
+				token = linea.Split('#');
+				auxiliar[i] = String.Copy(token[i]);
+				vector[j] = auxiliar[i];
+				j++;
 			}
 
-			for (i = 0; i < contador; i++)
+			for (i = 0; i < j; i++)
 			{
-				Console.WriteLine(cadena[i] + " 1");
+				Console.WriteLine(vector[i]);
 			}
 
 			archivo.Close();
