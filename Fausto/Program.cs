@@ -6,12 +6,11 @@ namespace Fausto
 	{
 		static void Main(string[] args)
 		{
-			string linea,caracter;
+			string linea, caracter;
 			int fila = 0, columna = 0, posxFausto = 0, posyFausto = 0, posxSalida = 0, posySalida = 0;
 			char[,] mapa;
-			int[] vectorX;
-			int[] vectorY;
-			int contador = 0, x = 0;
+			int[] vectorX, vectorY;
+			int contador = 0;
 			System.IO.StreamReader archivo = new System.IO.StreamReader("fausto.txt");
 			while ((linea = archivo.ReadLine()) != null)
 			{
@@ -22,7 +21,7 @@ namespace Fausto
 				fila++;
 			}
 
-			mapa = new char[fila,columna];
+			mapa = new char[fila, columna];
 			vectorX = new int[fila * columna];
 			vectorY = new int[fila * columna];
 			System.IO.StreamReader file = new System.IO.StreamReader("fausto.txt");
@@ -52,48 +51,19 @@ namespace Fausto
 				}
 			}
 
-			vectorX[x] = posxFausto;
-			vectorY[x] = posyFausto;
-			x++;
+			vectorX[contador] = posxFausto;
+			vectorY[contador] = posyFausto;
 			while(mapa[posxFausto, posyFausto] != mapa[posxSalida, posySalida])
 			{
-				if (mapa[posxFausto + 1, posyFausto] == '.' || mapa[posxFausto + 1, posyFausto] == 'o')
-				{
-					posxFausto++;
-					mapa[posxFausto - 1, posyFausto] = '0';
-				}
-				else
-				{
-					if (mapa[posxFausto - 1, posyFausto] == '.' || mapa[posxFausto - 1, posyFausto] == 'o')
-					{
-						posxFausto--;
-						mapa[posxFausto + 1, posyFausto] = '0';
-					}
-					else
-					{
-						if (mapa[posxFausto, posyFausto + 1] == '.' || mapa[posxFausto, posyFausto + 1] == 'o')
-						{
-							posyFausto++;
-							mapa[posxFausto, posyFausto - 1] = '0';
-						}
-						else
-						{
-							if (mapa[posxFausto, posyFausto - 1] == '.' || mapa[posxFausto, posyFausto - 1] == 'o')
-							{
-								posyFausto--;
-								mapa[posxFausto, posyFausto + 1] = '0';
-							}
-						}
-					}
-				}
-				vectorX[x] = posxFausto;
-				vectorY[x] = posyFausto;
-				x++;
 				contador++;
+				movimientoVertical(ref mapa, ref posxFausto, ref posyFausto);
+				movimientoHorizontal(ref mapa, ref posxFausto, ref posyFausto);
+				vectorX[contador] = posxFausto;
+				vectorY[contador] = posyFausto;
 			}
 
 			Console.WriteLine(contador);
-			for(int i = 0; i < x; i++)
+			for(int i = 0; i < contador; i++)
 			{
 				Console.WriteLine(vectorX[i] + " " + vectorY[i]);
 			}
@@ -102,6 +72,42 @@ namespace Fausto
 			file.Close();
 			Console.WriteLine("Presione una tecla para continuar...");
 			Console.ReadKey(true);
+		}
+
+		static int movimientoVertical(ref char[,] mapaAuxiliar, ref int xFausto, ref int yFausto)
+		{
+			if (mapaAuxiliar[xFausto, yFausto + 1] == '.' || mapaAuxiliar[xFausto, yFausto + 1] == 'o')
+			{
+				yFausto++;
+				mapaAuxiliar[xFausto, yFausto - 1] = '0';
+			}
+			else
+			{
+				if (mapaAuxiliar[xFausto, yFausto - 1] == '.' || mapaAuxiliar[xFausto, yFausto - 1] == 'o')
+				{
+					yFausto--;
+					mapaAuxiliar[xFausto, yFausto + 1] = '0';
+				}
+			}
+			return 0;
+		}
+
+		static int movimientoHorizontal(ref char[,] mapaAuxiliar, ref int xFausto, ref int yFausto)
+		{
+			if (mapaAuxiliar[xFausto + 1, yFausto] == '.' || mapaAuxiliar[xFausto + 1, yFausto] == 'o')
+			{
+				xFausto++;
+				mapaAuxiliar[xFausto - 1, yFausto] = '0';
+			}
+			else
+			{
+				if (mapaAuxiliar[xFausto - 1, yFausto] == '.' || mapaAuxiliar[xFausto - 1, yFausto] == 'o')
+				{
+					xFausto--;
+					mapaAuxiliar[xFausto + 1, yFausto] = '0';
+				}
+			}
+			return 0;
 		}
 	}
 }
